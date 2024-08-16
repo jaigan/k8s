@@ -6,7 +6,7 @@ replicas: 3
 configmap:
   name: helmappconfigmapv1.1
   data: 
-    CUSTOM_HEADER: "This app was deployed with helM!"
+    CUSTOM_HEADER: "This app was deployed with helm and deployed by jaiganesh version 10"
 
 image:
   name: devopsjourney1/mywebapp
