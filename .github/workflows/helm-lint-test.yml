@@ -45,10 +45,10 @@ jobs:
     # Step 6: Helm Diff (Compare changes)
     - name: Helm Diff
       run: |
-        helm diff upgrade my-release helm/ --namespace ${{ env.K8S_NAMESPACE }}
+        helm diff upgrade webapp-release webapp1/ --namespace ${{ env.K8S_NAMESPACE }}
 
     # Step 7: Helm Dry-Run (Simulate installation)
     - name: Helm Dry-Run
       run: |
-        helm upgrade --install my-release helm/ --namespace ${{ env.K8S_NAMESPACE }} --dry-run
+        helm upgrade --install webapp-release webapp1/ --namespace ${{ env.K8S_NAMESPACE }} --dry-run
 
