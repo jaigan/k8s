@@ -29,7 +29,7 @@ jobs:
     # Step 3: Helm Lint
     - name: Helm Lint
       run: |
-        helm lint helm/
+        helm lint webapp1/
 
     # Step 4: Setup kubeconfig (using GitHub Secrets)
     - name: Setup kubeconfig
