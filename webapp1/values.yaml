@@ -1,7 +1,7 @@
 appName: myhelmapp
 namespace: default
 port: 80
-replicas: 3
+replicas: 1
 
 configmap:
   name: helmappconfigmapv1.1
