@@ -1,0 +1,38 @@
+stages:
+  - lint
+  - build
+  - publish
+
+variables:
+  HELM_VERSION: "3.11.0"   # Set the Helm version
+  CHART_NAME: $CHART_NAME   # The name of the Helm chart
+  REPO_URL: "https://index.docker.io/v1/"   # Helm repository URL
+  REPO_USERNAME: $HELM_REPO_USERNAME   # Helm repo username stored in GitLab CI/CD secret variables
+  REPO_PASSWORD: $HELM_REPO_PASSWORD   # Helm repo password stored in GitLab CI/CD secret variables
+
+before_script:
+  - apt-get update && apt-get install -y curl
+  - curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+  - helm version
+
+lint:
+  stage: lint
+  script:
+    - helm lint $CHART_NAME
+  allow_failure: false
+
+build:
+  stage: build
+  script:
+    - helm package $CHART_NAME
+  artifacts:
+    paths:
+      - $CHART_NAME-*.tgz   # Save the packaged Helm chart as an artifact
+
+publish:
+  stage: publish
+  script:
+    - helm repo add my-repo $REPO_URL --username $REPO_USERNAME --password $REPO_PASSWORD
+    - helm push $CHART_NAME-*.tgz my-repo
+  only:
+    - main   # Only run this stage when changes are pushed to the main branch
