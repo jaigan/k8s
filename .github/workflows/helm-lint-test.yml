@@ -7,7 +7,7 @@ on:
 
 jobs:
   lint-and-test-helm:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     
     env:
       HELM_VERSION: v3.9.0
