@@ -3,6 +3,9 @@ namespace: default
 port: 80
 replicas: 3
 
+hpa:
+  name: myhelmapp-hpa
+
 configmap:
   name: helmappconfigmapv1.1
   data: 
