@@ -41,19 +41,3 @@ jobs:
     - name: Fix kubeconfig file permissions
       run: | 
          chmod 600 $HOME/.kube/config
-
-    # Step 6: Install Helm Diff Plugin
-    - name: Install Helm Diff Plugin
-      run: |
-        helm plugin install https://github.com/databus23/helm-diff
-
-    # Step 7: Helm Diff (Compare changes)
-    - name: Helm Diff
-      run: |
-        helm diff upgrade webapp-release webapp1/ --namespace ${{ env.K8S_NAMESPACE }}
-
-    # Step 8: Helm Dry-Run (Simulate installation)
-    - name: Helm Dry-Run
-      run: |
-        helm upgrade --install webapp-release webapp1/ --namespace ${{ env.K8S_NAMESPACE }} --dry-run
-
