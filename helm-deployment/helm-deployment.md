@@ -1,13 +1,16 @@
 
+
+
 # Create the helmchart
 ```
 helm create webapp1
 ```
 
-
-# Follow along with the video
-- Create the files per the video, copying and pasting from templates-original
-- you can also use the files in the solution folder
+# Create the manifest files
+```
+- Create the mainfest files like deployment.yml, values.yml, service.yml, 
+- Change the values.yaml as its needed.
+```
 
 # Install the first one
 ```
@@ -22,8 +25,6 @@ helm upgrade mywebapp-release webapp1/ --values mywebapp/values.yaml
 # Accessing it
 ```
 curl <any one of Node IP>:<Nodeport>
-
-servicename=$(kubectl get service -l "app={{ .Values.appName }}" -n {{ .Values.namespace }} -o jsonpath="{.items[0].metadata.name}")
 ```
 
 # Create dev/prod
