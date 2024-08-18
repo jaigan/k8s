@@ -1,4 +1,3 @@
-```markdown
 # GitHub Actions for Continuous Integration
 
 ## Introduction
