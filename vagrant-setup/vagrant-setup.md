@@ -52,8 +52,8 @@ AutoKube folder contains the scripts and vagrantfile which is used for setup the
 # sudo su -
 # systemctl status kubelet
 # kubectl get nodes
-![image](https://github.com/user-attachments/assets/9039a6d8-dbde-4010-b24f-18564f1d7353)
 ```
+![image](https://github.com/user-attachments/assets/9039a6d8-dbde-4010-b24f-18564f1d7353)
 
 ## Check the IP of the Node
 
@@ -62,8 +62,7 @@ ip -f inet addr show eth1 | grep -Po 'inet \K[\d.]+'
 ```
 After this stage you can use kubectl
 
-
-![image](https://github.com/user-attachments/assets/9039a6d8-dbde-4010-b24f-18564f1d7353)
+![image](https://github.com/user-attachments/assets/af1a9dab-92e5-40b0-b226-47a332a481db)
 
 
 
