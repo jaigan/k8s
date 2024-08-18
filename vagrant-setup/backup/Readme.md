@@ -1,7 +1,5 @@
 # Backup and Restore Kubernetes Applications Using velero
 
-[![Watch the video](https://img.youtube.com/vi/hV98fuCQJ48/maxresdefault.jpg)](https://youtu.be/hV98fuCQJ48)
-
 ## Create an S3 bucket and set permissions
 
 ```json
