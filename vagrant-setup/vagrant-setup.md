@@ -30,7 +30,7 @@ AutoKube folder contains the scripts and vagrantfile which is used for setup the
 
 ./scripts/master-pre-req.sh
 
-## k8s worker nde setup 
+## k8s worker node setup 
 ./scripts/worker-pre-req.sh 
 
 ```bash
@@ -38,8 +38,24 @@ AutoKube folder contains the scripts and vagrantfile which is used for setup the
 ```
 ```bash
 # vagrant ssh master-1
+# sudo su -
+# kubectl get nodes
+```
+
+## Check the nodes status and kubelet status
+```bash
+# sudo su -
+# systemctl status kubelet
+# kubectl get nodes
+```
+
+## Check the IP of the Node
+
+```bash
+ip -f inet addr show eth1 | grep -Po 'inet \K[\d.]+'
 ```
 After this stage you can use kubectl
+
 
 
 
