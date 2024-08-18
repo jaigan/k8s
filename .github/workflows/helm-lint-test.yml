@@ -82,4 +82,4 @@ jobs:
       # Step 5: Push the Helm chart to OCI registry
       - name: Push helm registry
         run: |
-          helm push ./helm-deployment-*.tgz oci://${{ secrets.OCI_REGISTRY_URL }}
+          helm push ./helm-deployment-*.tgz ${{ secrets.OCI_REGISTRY_URL }}
