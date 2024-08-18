@@ -12,9 +12,8 @@ GitHub Actions allows you to automate, customize, and execute your software deve
 ### Sample GitHub Action for CI
 
 1. **CI Workflow:**
-
-   ```
-   name: Helm Lint, Diff, and Dry-Run
+```
+name: Helm Lint, Diff, and Dry-Run
 
 on:
   pull_request:
@@ -57,4 +56,4 @@ jobs:
     - name: Install Helm Diff Plugin
       run: |
         helm plugin install https://github.com/databus23/helm-diff
-    ```
+```
