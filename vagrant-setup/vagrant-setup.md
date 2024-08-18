@@ -26,13 +26,12 @@ You have to install:
 
 AutoKube folder contains the scripts and vagrantfile which is used for setup the local cluster.  
 
-##k8s master node setup 
+## k8s master node setup 
 
-master-pre-req.sh
+./scripts/master-pre-req.sh
 
-##k8s worker nde setup 
-worker-pre-req.sh 
-
+## k8s worker nde setup 
+./scripts/worker-pre-req.sh 
 
 ```bash
 # vagrant up
