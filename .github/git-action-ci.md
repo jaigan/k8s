@@ -1,7 +1,3 @@
----
-
-### `git-action-ci.md`
-
 ```markdown
 # GitHub Actions for Continuous Integration
 
