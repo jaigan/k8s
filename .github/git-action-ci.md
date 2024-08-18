@@ -1,39 +1,43 @@
-# GitHub Actions for Continuous Integration
+name: Helm Lint, Diff, and Dry-Run
 
-## Introduction
+on:
+  pull_request:
+    branches:
+      - main
 
-GitHub Actions allows you to automate, customize, and execute your software development workflows right in your GitHub repository.
+jobs:
+  lint-and-test-helm:
+    runs-on: ubuntu-latest
 
-### Prerequisites
-- GitHub repository
-- Create `.github/workflows/ci.yml`
+    env:
+      HELM_VERSION: v3.9.0
+      K8S_NAMESPACE: default
 
-### Sample GitHub Action for CI
+    steps:
+    # Step 1: Checkout the code
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-1. **CI Workflow:**
-   ```yaml
-   name: CI
+    # Step 2: Install Helm
+    - name: Install Helm
+      run: |
+        curl https://get.helm.sh/helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz -o helm.tar.gz
+        tar -zxvf helm.tar.gz
+        sudo mv linux-amd64/helm /usr/local/bin/helm
+        helm version
 
-   on:
-     push:
-       branches:
-         - main
+    # Step 3: Helm Lint
+    - name: Helm Lint
+      run: |
+        helm lint webapp1/
 
-   jobs:
-     build:
-       runs-on: ubuntu-latest
+    # Step 4: Setup kubeconfig (using GitHub Secrets)
+    - name: Setup kubeconfig
+      run: |
+        mkdir -p $HOME/.kube
+        echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
 
-       steps:
-       - name: Checkout code
-         uses: actions/checkout@v2
-
-       - name: Set up Node.js
-         uses: actions/setup-node@v2
-         with:
-           node-version: '14'
-
-       - name: Install dependencies
-         run: npm install
-
-       - name: Run tests
-         run: npm test
+    # Step 5: Install Helm Diff Plugin
+    - name: Install Helm Diff Plugin
+      run: |
+        helm plugin install https://github.com/databus23/helm-diff
