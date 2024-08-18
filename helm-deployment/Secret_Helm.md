@@ -1,6 +1,3 @@
-To create a `README.md` file for managing secrets in Helm charts, here's a structure based on the content you've provided:
-
-```markdown
 # Managing Secrets in Helm Charts
 
 Managing secrets in Helm charts is critical for ensuring that sensitive data, such as API keys, passwords, and credentials, are stored and accessed securely. This document covers several methods to handle secrets in Helm charts based on your environment and security requirements.
