@@ -22,14 +22,17 @@ You have to install:
 
 ```bash
 # cd k8s/AutoKube
-autokube folder contains the scripts which is used for setup the local cluster having 
+```
 
-k8s master setup 
+AutoKube folder contains the scripts and vagrantfile which is used for setup the local cluster.  
+
+##k8s master node setup 
+
 master-pre-req.sh
 
-k8s worker nde setup 
+##k8s worker nde setup 
 worker-pre-req.sh 
-```
+
 
 ```bash
 # vagrant up
