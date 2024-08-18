@@ -47,15 +47,16 @@ jobs:
       # Step 1: Checkout the repository
       - name: Checkout the repository
         uses: actions/checkout@v3
-
-      # Step 2: Set up Docker CLI
-      - name: helm registry login
-        run: |
-          helm registry login -u ${{ secrets.DOCKER_USERNAME }} --password "${{ secrets.DOCKER_PASSWORD }}" ${{ secrets.DOC_REGISTRY_URL }}
-      # Step 3: Install Helm
+      
+      # Step 2: Install Helm
       - name: Install Helm
         run: |
           curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+      # Step 3: setup helm registry
+      - name: helm registry login
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ${{ secrets.DOC_REGISTRY_URL }} -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
       # Step 4: Package the Helm chart
       - name: Package the Helm chart
@@ -65,7 +66,4 @@ jobs:
       # Step 5: Push the Helm chart to OCI registry
       - name: Push helm registry
         run: |
-          helm registry login ${{ secrets.OCI_REGISTRY_URL }} \
-          --username ${{ secrets.DOCKER_USERNAME }} \
-          --password ${{ secrets.DOCKER_PASSWORD }}
           helm push ./helm-deployment-*.tgz oci://${{ secrets.OCI_REGISTRY_URL }}/helm-charts
