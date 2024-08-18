@@ -1,11 +1,18 @@
-name: Helm Lint, Diff, and Dry-Run
+name: Helm Chart CI/CD Pipeline
 
 on:
+  push:
+    branches:
+      - main  # Trigger the action on push to the main branch
+    paths:
+      - helm-deployment/Chart.yaml  # Trigger if changes are made to the Helm chart directory
+
   pull_request:
     branches:
-      - main
+      - main  # Trigger on pull requests to the main branch
 
 jobs:
+  # Job 1: Lint, Diff, and Dry-Run on Pull Requests
   lint-and-test-helm:
     runs-on: ubuntu-latest
 
@@ -14,30 +21,52 @@ jobs:
       K8S_NAMESPACE: default
 
     steps:
-    # Step 1: Checkout the code
-    - name: Checkout code
-      uses: actions/checkout@v2
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    # Step 2: Install Helm
-    - name: Install Helm
-      run: |
-        curl https://get.helm.sh/helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz -o helm.tar.gz
-        tar -zxvf helm.tar.gz
-        sudo mv linux-amd64/helm /usr/local/bin/helm
-        helm version
+      # Step 2: Install Helm
+      - name: Install Helm
+        run: |
+          curl https://get.helm.sh/helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz -o helm.tar.gz
+          tar -zxvf helm.tar.gz
+          sudo mv linux-amd64/helm /usr/local/bin/helm
+          helm version
 
-    # Step 3: Helm Lint
-    - name: Helm Lint
-      run: |
-        helm lint helm-deployment/
+      # Step 3: Helm Lint
+      - name: Helm Lint
+        run: |
+          helm lint helm-deployment/
+          
+  # Job 2: Push Helm Chart to OCI Repo on Push to Main
+  push-helm-chart:
+    runs-on: ubuntu-latest
+    needs: lint-and-test-helm  # Ensures this job runs after the lint-and-test job
 
-    # Step 4: Setup kubeconfig (using GitHub Secrets)
-    - name: Setup kubeconfig
-      run: |
-        mkdir -p $HOME/.kube
-        echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout the repository
+        uses: actions/checkout@v3
 
-    # Step 5: Install Helm Diff Plugin
-    - name: Install Helm Diff Plugin
-      run: |
-        helm plugin install https://github.com/databus23/helm-diff
+      # Step 2: Set up Docker CLI
+      - name: Set up Docker CLI
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ${{ secrets.OCI_REGISTRY_URL }} -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      # Step 3: Install Helm
+      - name: Install Helm
+        run: |
+          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+      # Step 4: Package the Helm chart
+      - name: Package the Helm chart
+        run: |
+          helm package ./helm-deployment  # Path to your Helm chart
+
+      # Step 5: Push the Helm chart to OCI registry
+      - name: Push helm registry
+        run: |
+          helm registry login ${{ secrets.OCI_REGISTRY_URL }} \
+          --username ${{ secrets.DOCKER_USERNAME }} \
+          --password ${{ secrets.DOCKER_PASSWORD }}
+          helm push ./helm-deployment-*.tgz oci://${{ secrets.OCI_REGISTRY_URL }}/helm-charts
