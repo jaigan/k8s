@@ -61,7 +61,23 @@ jobs:
       # Step 4: Package the Helm chart
       - name: Package the Helm chart
         run: |
-          helm package ./helm-deployment  # Path to your Helm chart
+          # Ensure the chart directory exists before packaging
+          if [ -d "./helm-deployment" ]; then
+            helm package ./helm-deployment
+          else
+            echo "Helm chart directory not found!"
+            exit 1
+          fi
+
+      # Step 5: Verify the package
+      - name: Verify Helm package
+        run: |
+          # Ensure the package exists
+          if [ ! -f ./helm-deployment-*.tgz ]; then
+            echo "Packaged Helm chart not found!"
+            ls -la
+            exit 1
+          fi
 
       # Step 5: Push the Helm chart to OCI registry
       - name: Push helm registry
