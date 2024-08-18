@@ -17,11 +17,18 @@ You have to install:
 ## How To Use It
 
 ```bash
-# git clone https://github.com/vNugget/Kubernetes.git
+# git clone https://github.com/jaigan/k8s.git
 ```
 
 ```bash
-# cd Kubernetes/AutoKube
+# cd k8s/AutoKube
+autokube folder contains the scripts which is used for setup the local cluster having 
+
+k8s master setup 
+master-pre-req.sh
+
+k8s worker nde setup 
+worker-pre-req.sh 
 ```
 
 ```bash
