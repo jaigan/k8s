@@ -21,7 +21,9 @@ helm upgrade mywebapp-release webapp1/ --values mywebapp/values.yaml
 
 # Accessing it
 ```
-minikube tunnel
+curl <any one of Node IP>:<Nodeport>
+
+servicename=$(kubectl get service -l "app={{ .Values.appName }}" -n {{ .Values.namespace }} -o jsonpath="{.items[0].metadata.name}")
 ```
 
 # Create dev/prod
