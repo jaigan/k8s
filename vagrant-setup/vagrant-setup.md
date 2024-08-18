@@ -61,6 +61,8 @@ ip -f inet addr show eth1 | grep -Po 'inet \K[\d.]+'
 ```
 After this stage you can use kubectl
 
+![image](https://github.com/user-attachments/assets/26012617-1cb5-4dff-859d-4a07755b2888)
+
 
 
 
