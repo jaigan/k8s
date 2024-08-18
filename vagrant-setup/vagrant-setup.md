@@ -28,10 +28,15 @@ AutoKube folder contains the scripts and vagrantfile which is used for setup the
 
 ## k8s master node setup 
 
+```bash
 ./scripts/master-pre-req.sh
+```
 
 ## k8s worker node setup 
+```bash
 ./scripts/worker-pre-req.sh 
+```
+## Vagrant Commands
 
 ```bash
 # vagrant up
