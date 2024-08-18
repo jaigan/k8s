@@ -1,8 +1,3 @@
----
-
-### `argocd_cd.md`
-
-```markdown
 # Argo CD for Continuous Deployment
 
 ## Introduction
