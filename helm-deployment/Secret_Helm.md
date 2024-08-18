@@ -177,5 +177,3 @@ The [Helm Secrets Plugin](https://github.com/jkroepke/helm-secrets) allows you t
 Choose the method that aligns with your security requirements and operational complexity. Each solution has trade-offs, so it's important to weigh ease of use against the level of security you need.
 
 ```
-
-This `README.md` provides comprehensive guidance for managing secrets with Helm charts, covering basic and advanced use cases. Let me know if you'd like to make any adjustments or add more information!
