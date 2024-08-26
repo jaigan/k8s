@@ -1,6 +1,6 @@
 # DevOps Guide
 
-This guide covers essential tools and practices for local server setup, continuous integration, and continuous deployment. Follow the links below to access each section.
+This guide covers essential tools and practices for local server setup, continuous integration, and continuous deployment. Follow the links below to access each section..
 
 ## Table of Contents
 
